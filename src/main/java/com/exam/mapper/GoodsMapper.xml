@@ -5,6 +5,15 @@
   
 <mapper namespace="com.exam.mapper.GoodsMapper">
  
+ 
+    <!-- 모든 상품 보기-->
+    
+    <select id="selectAll" resultType="GoodsDTO">
+		
+		select * from goods
+		
+	</select>
+    
    <!-- 상품목록 -->
    <select id="goodsList" parameterType="string" resultType="GoodsDTO">
      select bookId,
@@ -33,5 +42,27 @@
      from goods
      where bookId = #{bookId}
    </select>
+   
+   <!-- 페이징 처리 -->
+   
+   <select id="getGoodsByCategory" parameterType="map" resultType="GoodsDTO">
+        SELECT *
+        FROM goods
+        WHERE category = #{category}
+        LIMIT #{offset}, #{itemsPerPage}
+    </select>
+    
+    <select id="countGoodsByCategory" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+        FROM goods
+        WHERE category = #{category}
+    </select>
+   <!-- 페이징 처리된 전체 상품 목록 조회 -->
+    <select id="selectAllWithPaging" parameterType="map" resultType="GoodsDTO">
+        SELECT * FROM goods
+        ORDER BY bookId
+        LIMIT #{offset}, #{itemsPerPage}
+    </select>
+
    
 </mapper>
