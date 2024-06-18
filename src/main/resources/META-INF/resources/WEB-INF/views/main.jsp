@@ -29,24 +29,6 @@
 
 </head>
 <body>
-@@@@@@2
-
-@@@@@@2
-
-@@@@@@2
-
-@@@@@@2
-
-
-@@@@@@2
-
-@@@@@@2
-
-@@@@@@2
-
-@@@@@@2
-
-@@@@@@2
 
  <div class="App">
 	<jsp:include page="common/top.jsp" flush="true" /><br>
