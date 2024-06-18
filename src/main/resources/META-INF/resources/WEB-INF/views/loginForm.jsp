@@ -27,11 +27,9 @@
 </head>
 <body>
  <div class="App">
-	  <!-- header 보여주기 -->
-	 	<jsp:include page="common/header.jsp" />
-	 
-	    <!-- content 보여주기 -->
-	 	<jsp:include page="member/loginForm.jsp" />
+	 	<jsp:include page="common/top.jsp" flush="true" />
+	 	<jsp:include page="member/loginForm.jsp" flush="true" />
+		<jsp:include page="common/footer.jsp" flush="true" />
  </div>
 </body>
 </html>

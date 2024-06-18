@@ -3,6 +3,9 @@ package com.exam.dto;
 //import java.sql.Date;
 import java.time.LocalDate;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("GoodsDTO")
 public class GoodsDTO {
 	
 	String bookId;

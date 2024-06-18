@@ -21,7 +21,7 @@ public class LoginController {
 	
 	@GetMapping(value={"/login"})
 	public String showLoginPage() {
-		return "views/loginForm";
+		return "loginForm";
 	}
 	
 	@PostMapping(value={"/login_fail"})

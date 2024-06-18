@@ -31,7 +31,8 @@ public class MainController {
 		this.goodsService = goodsService;
 	}
 
-	@GetMapping("/main")
+//	@GetMapping("/main")
+	@GetMapping(value={"/main"})
 	public String main(@RequestParam(required = false) String category,
 			ModelMap m) {
 	    
@@ -39,12 +40,14 @@ public class MainController {
   
 	    if (category == null || category.isEmpty()) {
 	        goodsList = goodsService.selectAll(); // 모든 책들을 가져오는 메서드
-	    
+	        logger.info("logger:main:goodsList if문");
 	    } else {
+	    	logger.info("logger:main:goodsList else문");
 	    	goodsList = goodsService.goodsList(category);
         
 	    }
 	    m.addAttribute("goodsList", goodsList);
+	    logger.info("logger:main:goodsList addAttribute");
 
 	    return "main";
 	}

@@ -31,7 +31,7 @@ public class MemberController {
 	public String showSignupPage(ModelMap model) {
 		
 		model.put("member", new MemberDTO());
-		return "views/memberForm";
+		return "memberForm";
 	}
 
 	@PostMapping(value={"/signup"})
@@ -39,7 +39,7 @@ public class MemberController {
 		logger.info("logger:{}", member);
 		
 		if(result.hasErrors()) {
-			return "views/memberForm";
+			return "memberForm";
 		}
 
 		String encryptPw = new BCryptPasswordEncoder().encode(member.getUserPw());
