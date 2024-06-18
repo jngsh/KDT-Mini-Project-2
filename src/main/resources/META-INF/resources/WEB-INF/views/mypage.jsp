@@ -31,7 +31,7 @@
 	 	<jsp:include page="common/header.jsp" />
 	 
 	    <!-- content 보여주기 -->
-	 	<jsp:include page="member/loginForm.jsp" />
+	 	<jsp:include page="member/mypage.jsp" />
  </div>
 </body>
 </html>

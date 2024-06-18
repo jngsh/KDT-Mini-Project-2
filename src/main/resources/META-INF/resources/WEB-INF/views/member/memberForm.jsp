@@ -57,7 +57,7 @@ $(document).ready(function(){
 		  			</div>
 		  			
 		  			<div class="row mb-3">
-		    			<label for="username" class="col-sm-2 col-form-label">이름</label>
+		    			<label for="username" class="col-sm-2 col-form-label">*이름</label>
 		    			<div class="col-auto">
 		      				<form:input type="text" class="form-control" path="userName" />
 		      				<form:errors path="userName" cssClass="text-warning"/>

@@ -32,7 +32,7 @@
 		 	<jsp:include page="common/header.jsp" />
 		 	
 		    <!-- content 보여주기 -->
-		 	<jsp:include page="common/memberForm.jsp" />
+		 	<jsp:include page="member/memberForm.jsp" />
 		</div>
 	
 </body>

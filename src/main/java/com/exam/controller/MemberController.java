@@ -12,8 +12,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.exam.dto.MemberDTO;
 import com.exam.service.MemberService;
@@ -50,6 +48,17 @@ public class MemberController {
 		int n = memberService.save(member);
 
 		return "redirect:main";
+	}
+	
+	@GetMapping(value={"/mypage"})
+	public String mypage() {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		logger.info("logger:Authentication:{}", auth);
+		MemberDTO member = (MemberDTO)auth.getPrincipal();
+		logger.info("logger:Member:{}", member);
+		
+		return "redirect:mypage";
 	}
 	
 }
