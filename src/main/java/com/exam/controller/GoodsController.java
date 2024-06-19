@@ -23,7 +23,8 @@ public class GoodsController {
 		this.goodsService = goodsService;
 	}
 	
-	@GetMapping("/goodsDetail")
+//	@GetMapping("/goodsDetail")
+	@GetMapping(value={"/goodsDetail"})
     public String goodsDetail(@RequestParam("bookId") String bookId, ModelMap model) {
        
 		GoodsDTO goodsRetrieve = goodsService.goodsRetrieve(bookId);

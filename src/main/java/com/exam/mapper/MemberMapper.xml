@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.exam.mapper.MemberMapper">
+	
+ 	<!-- 회원가입 -->
+	<insert id="save" parameterType="MemberDTO">
+		insert into member (userId, userPw, userName, phone1, phone2, phone3, email1, email2, post, addr1)
+        values (#{userId}, #{userPw}, #{userName}, #{phone1}, #{phone2}, #{phone3}, #{email1}, #{email2}, #{post}, #{addr1})
+    </insert>
+   
+   <!-- 로그인 -->
+    <select id="findById" parameterType="string" resultType="MemberDTO">
+        select userId, userPw, userName
+        from member
+        where userId = #{userId}
+    </select>
+   
+   
+</mapper>

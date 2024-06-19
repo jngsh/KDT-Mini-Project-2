@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -31,6 +31,31 @@
                         <li class="nav-item"><a class="nav-link" href="main?category=poemessay">시/에세이</a></li>
                         
                     </ul>
+                    <ul class="navbar-nav">
+        					<!-- 인증이 안 된 사용자 -->
+        					<sec:authorize access="isAnonymous()">
+                             <li class="nav-item">
+                               <a class="nav-link" href="login">login</a>
+                            </li>
+                            </sec:authorize>
+                            <sec:authorize access="isAnonymous()">
+                            <li class="nav-item">
+                                <a class="nav-link" href="signup">signup</a>
+                            </li>
+                            </sec:authorize>
+                            
+                            <!-- 인증이 된 사용자 -->
+                            <sec:authorize access="isAuthenticated()">
+                            <li class="nav-item">
+                                <a class="nav-link" href="logout">logout</a>
+                            </li>
+                            </sec:authorize>
+                            <sec:authorize access="isAuthenticated()">
+                            <li class="nav-item">
+                                <a class="nav-link" href="mypage">mypage</a>
+                            </li>
+                            </sec:authorize>
+                        </ul>
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
