@@ -40,14 +40,15 @@ public class MainController {
   
 	    if (category == null || category.isEmpty()) {
 	        goodsList = goodsService.selectAll(); // 모든 책들을 가져오는 메서드
-	        logger.info("logger:main:goodsList if문");
+//	        logger.info("logger:main:goodsList if문");
+	        
 	    } else {
-	    	logger.info("logger:main:goodsList else문");
+//	    	logger.info("logger:main:goodsList else문");
 	    	goodsList = goodsService.goodsList(category);
         
 	    }
 	    m.addAttribute("goodsList", goodsList);
-	    logger.info("logger:main:goodsList addAttribute");
+//	    logger.info("logger:main:goodsList addAttribute", m);
 
 	    return "main";
 	}

@@ -11,6 +11,8 @@
 <body>
 
  <div class="App">
+ 
+                           
 	<jsp:include page="common/top.jsp" flush="true" /><br>
 	<jsp:include page="goods/goodsList.jsp" flush="true" />
 	<jsp:include page="common/footer.jsp" flush="true" />
