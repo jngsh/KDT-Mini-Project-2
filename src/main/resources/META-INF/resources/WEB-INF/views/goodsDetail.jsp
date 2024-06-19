@@ -7,23 +7,29 @@
     <link rel="stylesheet" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css">
     <script src="webjars/jquery/3.7.1/jquery.min.js"></script>
     
-    <script>
+   <script>
+    let quantity = 1;
+    const price = ${goodsRetrieve.price};
+
+    function updateTotalPrice() {
+        const totalPriceElement = document.getElementById('totalPrice');
+        totalPriceElement.textContent = quantity * price;
+    }
+
     function increaseQuantity() {
-        var quantityElement = document.getElementById('quantity');
-        var currentQuantity = parseInt(quantityElement.innerText);
-        quantityElement.innerText = currentQuantity + 1;
+        quantity++;
+        document.getElementById('quantity').textContent = quantity;
+        updateTotalPrice();
     }
 
     function decreaseQuantity() {
-        var quantityElement = document.getElementById('quantity');
-        var currentQuantity = parseInt(quantityElement.innerText);
-        
-        // 수량이 0 이상인 경우에만 감소하도록 조건 추가
-        if (currentQuantity > 0) {
-            quantityElement.innerText = currentQuantity - 1;
+        if (quantity > 1) {
+            quantity--;
+            document.getElementById('quantity').textContent = quantity;
+            updateTotalPrice();
         }
     }
-	</script>
+</script>
     
 </head>
 <body>
@@ -71,14 +77,21 @@
 							</p>
 							
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-    							<div class="row">
+    							<div class="row align-items-center">
         							<div class="col text-start">
-            							<a class="btn btn-outline-dark mt-auto" href="goodsDetail?bookId=${dto.bookId}">장바구니</a>
-        							</div>
-    							</div>
-							</div>
+         
+        						<div class="col text-start">
+            					<!-- 가격 표시 -->
+            					<span id="totalPrice">${goodsRetrieve.price}</span>원
+        						</div>
+        						
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="goodsDetail?bookId=${dto.bookId}">장바구니</a></div>
+                            	</div>
+        						
+    						</div>
+						</div>
 
-                        </div>
+                      </div>
                     </div>
                 </c:when>
                 <c:otherwise>

@@ -45,6 +45,7 @@ public class MainController {
         
 	    }
 	    m.addAttribute("goodsList", goodsList);
+	    logger.info("logger: ",m);
 
 	    return "main";
 	}
