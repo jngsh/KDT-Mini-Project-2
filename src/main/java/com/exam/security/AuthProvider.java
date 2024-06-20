@@ -3,6 +3,8 @@ package com.exam.security;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,7 +20,7 @@ import com.exam.service.MemberService;
 
 @Component
 public class AuthProvider implements AuthenticationProvider {
-
+	
 	MemberService memberService;
 	
 	public AuthProvider(MemberService memberService) {
@@ -33,6 +35,7 @@ public class AuthProvider implements AuthenticationProvider {
 		
 		
 		MemberDTO member = memberService.findById(userId);
+		
 		
 		//로그인 성공시
 		UsernamePasswordAuthenticationToken token=null;

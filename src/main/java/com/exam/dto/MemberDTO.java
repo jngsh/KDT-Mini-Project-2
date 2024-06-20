@@ -20,12 +20,13 @@ public class MemberDTO {
 	String email2;
 	String post;
 	String addr1;
+	String addr2;
 	
 	public MemberDTO() {}
 
 	public MemberDTO(@NotBlank(message = "적어도 한글자 이상") String userId, @NotBlank(message = "적어도 한글자 이상") String userName,
 			@NotBlank(message = "적어도 한글자 이상") String userPw, String phone1, String phone2, String phone3, String email1, String email2, String post,
-			String addr1) {
+			String addr1, String addr2) {
 		this.userId = userId;
 		this.userName = userName;
 		this.userPw = userPw;
@@ -36,6 +37,7 @@ public class MemberDTO {
 		this.email2 = email2;
 		this.post = post;
 		this.addr1 = addr1;
+		this.addr2 = addr2;
 	}
 
 	public String getUserId() {
@@ -110,19 +112,27 @@ public class MemberDTO {
 		this.post = post;
 	}
 
-	public String getAdd() {
+	public String getAddr1() {
 		return addr1;
 	}
 
-	public void setAdd(String addr1) {
+	public void setAddr1(String addr1) {
 		this.addr1 = addr1;
+	}
+	
+	public String getAddr2() {
+		return addr1;
+	}
+
+	public void setAddr2(String addr2) {
+		this.addr2 = addr2;
 	}
 
 	@Override
 	public String toString() {
 		return "MemberDTO [userId=" + userId + ", userName=" + userName + ", userPw=" + userPw + ", phone1=" + phone1
 				+ ", phone2=" + phone2 + ", phone3=" + phone3 + ", email1=" + email1 + ", email2=" + email2 + ", post="
-				+ post + ", addr1=" + addr1 + "]";
+				+ post + ", addr1=" + addr1 + ", addr2=" + addr2 + "]";
 	}
 	
 }
