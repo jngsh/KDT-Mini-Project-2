@@ -1,12 +1,19 @@
 package com.exam.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.exam.dto.MemberDTO;
 import com.exam.service.MemberService;
+import com.mysql.cj.Session;
 
 @Controller
 public class LoginController {
@@ -31,9 +38,15 @@ public class LoginController {
 	}
 	
 	@GetMapping(value={"/login_success"})
-	public String showlogin_successPage() {
-		logger.info("logger:showlogin_successPage");
-		return "redirect:main";
-	}
+	   public String showlogin_successPage(HttpSession session) {
+	      logger.info("logger:showlogin_successPage");
+	      Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	        if (auth != null && auth.isAuthenticated() && auth.getPrincipal() instanceof MemberDTO) {
+	            MemberDTO user = (MemberDTO) auth.getPrincipal();
+	            session.setAttribute("userId", user.getUserId());
+	        }
+	      return "redirect:main";
+	   }
+	
 	
 }

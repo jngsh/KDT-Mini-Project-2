@@ -7,23 +7,56 @@
     <link rel="stylesheet" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css">
     <script src="webjars/jquery/3.7.1/jquery.min.js"></script>
     
-    <script>
-    function increaseQuantity() {
-        var quantityElement = document.getElementById('quantity');
-        var currentQuantity = parseInt(quantityElement.innerText);
-        quantityElement.innerText = currentQuantity + 1;
-    }
 
-    function decreaseQuantity() {
-        var quantityElement = document.getElementById('quantity');
-        var currentQuantity = parseInt(quantityElement.innerText);
-        
-        // 수량이 0 이상인 경우에만 감소하도록 조건 추가
-        if (currentQuantity > 0) {
-            quantityElement.innerText = currentQuantity - 1;
+ <script type="text/javascript">
+ 
+        let cCount = 1;
+        const price = ${goodsRetrieve.price};
+
+        function updateTotalPrice() {
+            const totalPriceElement = document.getElementById('totalPrice');
+            totalPriceElement.textContent = cCount * price;
         }
-    }
-	</script>
+
+        function increaseQuantity() {
+        	cCount++;
+            document.getElementById('cCount').textContent = cCount;
+            updateTotalPrice();
+        }
+
+        function decreaseQuantity() {
+            if (cCount > 1) {
+            	cCount--;
+                document.getElementById('cCount').textContent = cCount;
+                updateTotalPrice();
+            }
+        }
+        
+        
+        function addToCart(bookId) {
+            let cCount = parseInt(document.getElementById('cCount').textContent);
+            let totalPrice = parseInt(document.getElementById('totalPrice').textContent);
+            $.ajax({
+                type: "POST",
+                url: "addToCart",
+                data: {
+                    bookId: bookId,
+                    cCount: cCount,
+                    totalPrice:totalPrice
+                },
+                success: function(response) {
+                    alert(response.message);
+                    window.location.href = response.redirect;
+                },
+                error: function() {
+                    alert("장바구니에 담는 중 오류가 발생했습니다.");
+                }
+            });
+        }
+
+    </script>
+  
+
     
 </head>
 <body>
@@ -66,19 +99,26 @@
                             <p><strong>출판일:</strong> ${goodsRetrieve.publishDate}</p>
                             <p><strong>수량:</strong> 
                             	<button type="button" onclick="decreaseQuantity()">-</button>
-    							<span id="quantity">1</span>
+    							<span id="cCount">1</span>
     							<button type="button" onclick="increaseQuantity()">+</button>
 							</p>
 							
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-    							<div class="row">
+    							<div class="row align-items-center">
         							<div class="col text-start">
-            							<a class="btn btn-outline-dark mt-auto" href="goodsDetail?bookId=${dto.bookId}">장바구니</a>
-        							</div>
-    							</div>
+         
+        						<div class="col text-start">
+            					<!-- 가격 표시 -->
+            					<span id="totalPrice">${goodsRetrieve.price}</span>원
+        						</div>
+        						
+                            <div class="text-left">
+								<button type="submit" class="btn btn-outline-dark mt-auto"  onclick="addToCart('${goodsRetrieve.bookId}')">장바구니</button>
 							</div>
+    						</div>
+						</div>
 
-                        </div>
+                      </div>
                     </div>
                 </c:when>
                 <c:otherwise>
