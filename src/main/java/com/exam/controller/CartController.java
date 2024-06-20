@@ -77,23 +77,6 @@ public class CartController {
     }
     
   
-//    @PostMapping("/cartDelete")
-//    public String deleteSelectedBooks(@RequestParam("selectedBookIds") String selectedBookIds,
-//    		@RequestParam("userId") String userId) {
-//        
-//        String[] bookIds = selectedBookIds.split(",");
-//        
-//        // bookIds 배열에는 선택된 책들의 bookId들이 들어 있습니다.
-//        // 이제 여기서 각 bookId를 사용하여 삭제 로직을 수행하면 됩니다.
-//        
-//        for (String bookId : bookIds) {
-//            
-//        	cartService.deleteItem(bookId);
-//        }
-//        
-//        // 삭제 후 리다이렉트할 페이지나 처리할 다른 작업이 있으면 추가하면 됩니다.
-//        return "redirect:cartItems"; // 예시로 cart 페이지로 리다이렉트
-//    }
     @PostMapping("/cartDelete")
     public String deleteSelectedBooks(@RequestParam("selectedBookIds") String selectedBookIds,
                                       @RequestParam("userId") String userId) {

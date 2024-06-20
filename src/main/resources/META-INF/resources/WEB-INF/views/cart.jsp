@@ -108,6 +108,41 @@
             form.submit(); // 폼 제출
         }
     }
+    function purchaseSelectBooks() {
+        var form = document.getElementById("purchaseForm");
+        var checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
+        var selectedBookIds = []; // 선택된 책의 bookId를 저장할 배열
+        
+        if (checkboxes.length === 0) {
+            alert("구매할 책을 선택하세요.");
+            return;
+        }
+        
+        // 선택된 체크박스의 value 즉, bookId를 배열에 저장
+        checkboxes.forEach(function(checkbox) {
+            selectedBookIds.push(checkbox.value);
+        });
+        
+        // 사용자에게 확인 메시지 표시
+        if (confirm("선택한 책을 삭제하시겠습니까?")) {
+            // 선택된 책들의 bookId를 hidden input에 설정
+            var selectedBooksInput = document.createElement("input");
+            selectedBooksInput.setAttribute("type", "hidden");
+            selectedBooksInput.setAttribute("name", "selectedBookIds");
+            selectedBooksInput.setAttribute("value", selectedBookIds.join(",")); // 배열을 쉼표로 구분된 문자열로 변환
+            form.appendChild(selectedBooksInput); // hidden input을 폼에 추가
+            
+            // userId를 hidden input으로 설정
+            var userIdInput = document.createElement("input");
+            userIdInput.setAttribute("type", "hidden");
+            userIdInput.setAttribute("name", "userId");
+            userIdInput.setAttribute("value", "${userId}"); // JSP에서 userId 값을 가져와서 설정
+            form.appendChild(userIdInput); // hidden input을 폼에 추가
+            
+            form.action = "purchaseBook";
+            form.submit(); // 폼 제출
+        }
+    }
     
     
     
