@@ -19,7 +19,7 @@ import com.exam.service.GoodsService;
 
 
 @Controller
-public class MainController {
+public class MainController {//ㅣ
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 
