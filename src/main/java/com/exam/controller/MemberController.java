@@ -11,7 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.exam.dto.MemberDTO;
 import com.exam.service.MemberService;
@@ -47,18 +51,67 @@ public class MemberController {
 		
 		int n = memberService.save(member);
 
-		return "redirect:main";
+		return "redirect:login";
+	}
+	
+	@GetMapping("/idCheck")
+	public @ResponseBody String idCheck(@RequestParam(name = "userId") String userId) {
+		
+		int idCount = memberService.idCheck(userId);
+		
+		String mesg = "사용가능";
+		if(idCount == 1) {
+//			logger.info("logger:idCount == 1: idCount={}", idCount);
+			mesg = "사용불가";
+		} else {
+//			logger.info("logger:idCount == 1: idCount={}", idCount);
+		}
+		return mesg;
 	}
 	
 	@GetMapping(value={"/mypage"})
-	public String mypage() {
+	public String mypage(ModelMap model) {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		logger.info("logger:Authentication:{}", auth);
-		MemberDTO member = (MemberDTO)auth.getPrincipal();
-		logger.info("logger:Member:{}", member);
 		
-		return "redirect:mypage";
+        if (auth != null && auth.isAuthenticated()) {
+        	MemberDTO member = (MemberDTO)auth.getPrincipal();
+        	logger.info("logger:MemberDTO:{}", member);
+        	model.addAttribute("member", member);
+        	return "mypage";
+        } else {
+        	return "redirect:login";
+        }
+        
+	}
+	
+//	@PostMapping(value={"/updateMember"})
+//	public @ResponseBody MemberDTO updateMember(@RequestBody MemberDTO updatedMemberDTO, ModelMap model) {
+////		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+////		MemberDTO member = (MemberDTO)auth.getPrincipal();
+//		logger.info("logger:updateMember 전 memberDTO={}", updatedMemberDTO);
+//		
+//		memberService.updateMember(updatedMemberDTO);
+//		logger.info("logger:updateMember 후 memberDTO={}", updatedMemberDTO);
+//		return updatedMemberDTO;
+//	}
+	
+	@PostMapping(value={"/updateMember"})
+	public @ResponseBody void updateMember(@RequestBody MemberDTO updatedMemberDTO, ModelMap model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//		MemberDTO member = (MemberDTO)auth.getPrincipal();
+		logger.info("logger:updateMember 전 memberDTO={}", updatedMemberDTO);
+		
+		memberService.updateMember(updatedMemberDTO);
+		logger.info("logger:updateMember 후 memberDTO={}", updatedMemberDTO);
+		
+		if (auth != null && auth.isAuthenticated()) {
+        	MemberDTO member = (MemberDTO)auth.getPrincipal();
+        	logger.info("logger:MemberDTO:{}", member);
+        	model.addAttribute("member", member);
+        }
+//		return "hello";
 	}
 	
 }

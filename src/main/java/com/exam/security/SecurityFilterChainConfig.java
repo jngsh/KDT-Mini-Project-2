@@ -15,8 +15,9 @@ public class SecurityFilterChainConfig {
 		
 		//1. 불필요한 인증제거
 		http.authorizeRequests()
+			.antMatchers("/mypage").authenticated()
 //		    .antMatchers("/login","/main", "/signup", "/member/**", "/views/**", "/static/**", "/goods/**", "/common/**", "/webjars/**","/image/**", "/assets/**", "/css/**", "/js/**").permitAll()
-		    .antMatchers("/resources/**", "/goods/**","/login", "/main", "/signup", "/static/**", "/webjars/**", "/image/**","/goods/**").permitAll()
+		    .antMatchers("/resources/**", "/goodsDetail", "/goods/**","/login", "/main", "/signup", "/idCheck","/webjars/**", "/image/**", "/assets/**", "/css/**", "/js/**").permitAll()
 		    .anyRequest()
 		    .authenticated();
 		
@@ -39,6 +40,7 @@ public class SecurityFilterChainConfig {
 		     .logoutUrl("/logout")   // security가 자동으로 로그아웃 처리해주는 요청맵핑값
 		     .logoutSuccessUrl("/main");  // logout 성공시 리다이렉트 되는 요청맵핑값
 		     
+		 
 		return http.build();
 	}
 	

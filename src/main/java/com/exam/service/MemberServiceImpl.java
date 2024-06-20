@@ -1,13 +1,8 @@
 package com.exam.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.exam.dto.GoodsDTO;
 import com.exam.dto.MemberDTO;
-import com.exam.mapper.GoodsMapper;
 import com.exam.mapper.MemberMapper;
 
 @Service
@@ -29,5 +24,19 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.findById(userId);
 	}
 
+	@Override
+	public MemberDTO mypage(String userId) {
+		return memberMapper.mypage(userId);
+	}
+
+	@Override
+	public void updateMember(MemberDTO member) {
+		memberMapper.updateMember(member);
+	}
+
+	@Override
+	public int idCheck(String userId) {
+		return memberMapper.idCheck(userId);
+	}
 
 }

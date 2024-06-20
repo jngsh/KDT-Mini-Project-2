@@ -23,6 +23,65 @@ $(document).ready(function(){
   		});
 	});
 	
+	// pw 확인
+	$("#passwd2").on("keyup", function(){
+		var passwd = $("#userPw").val();
+		var passwd2 = $("#passwd2").val();
+		var mesg = "비밀번호 일치";
+		if(passwd != passwd2){
+			mesg = "비밀번호 불일치";
+		}
+		
+		$("#pwdcheck").text(mesg);
+	});// end pw 확인
+	
+	
+	
+	// id 중복 체크
+	$("#idDupulicatedcheck").on("click", function(){
+		// jQuery Ajax
+		$.ajax({
+            method:"get",
+            url:"idCheck", // MemberIDCheckServlet의 mapping값
+            dataType:'text', // 응답되는 데이터 타입, (사용가능|사용불가)
+            data:{
+            	userId:$("#userId").val() // 세미콜론 안 붙임 value니까. 여러 개면 , 넣고 추가
+            }, // json 형태로 데이터 입력, key:value
+            success:function(data, status, xhr){ // 응답이 성공하면
+                console.log("data:", data);
+                console.log("status:", status);
+                $("#idcheck").text(data);
+            	// console.log($("#userId").val());
+            },
+            error:function(xhr, status, error){ // 응답이 실패하면
+                console.log("error:", error);
+            	// console.log($("#userId").val());
+            }
+        });
+	});// end id 중복 체크
+	
+	// 회원가입 submit
+	$("form").on("submit", function(){
+		alert("회원가입되었습니다."); // submit 후 나타나는 알림창
+	});
+	
+	// 이메일 select
+	$("#email3").on("click", function(){
+		$("#email2").val($("#email3").val());
+	});
+	
+	
+/* 	// 비밀번호 mask
+	$("#userPw").on("keyup", function(){
+		var userPw = $(this).val();
+		var maskedPw = maskPw(userPw);
+		$("#userPw").text(maskedPw);
+	});
+	
+	function maskPw(pw){
+		return '*'.repeat(pw.length);
+	} */
+	
 });
 </script>
 
@@ -35,9 +94,9 @@ $(document).ready(function(){
             	<form:form  method="post" modelAttribute="member" action="signup">
           
           			<div class="row mb-3">
-		    			<label for="userid" class="col-sm-2 col-form-label">*아이디</label>
+		    			<label for="userId" class="col-sm-2 col-form-label">*아이디</label>
 		    			<div class="col-auto">
-		      				<form:input type="text" class="form-control" path="userId" />
+		      				<form:input type="text" class="form-control" path="userId" required="required"/>
 		      				<form:errors path="userId" cssClass="text-warning"/>
 		    			</div>
 		    			<div class="col-auto">
@@ -49,17 +108,26 @@ $(document).ready(function(){
 		  			</div>
 		 
 		 			<div class="row mb-3">
-		    			<label for="password" class="col-sm-2 col-form-label">*비밀번호</label>
+		    			<label for="userPw" class="col-sm-2 col-form-label">*비밀번호</label>
 		    			<div class="col-auto">
-		      				<form:input type="password" class="form-control" path="userPw" />
+		      				<form:input type="password" class="form-control" path="userPw" required="required"/>
 		      				<form:errors path="userPw" cssClass="text-warning"/>
+		    			</div>
+		  			</div>
+		  			<div class="row mb-3">
+		    			<label for="passwd2" class="col-sm-2 col-form-label">*비밀번호확인</label>
+		    			<div class="col-sm-5">
+		      				<input type="password" class="form-control" name="passwd2" id="passwd2">
+		    				</div>
+		    			<div class="col-sm-3">
+		      				<span id="pwdcheck" class="fs-5"></span>
 		    			</div>
 		  			</div>
 		  			
 		  			<div class="row mb-3">
-		    			<label for="username" class="col-sm-2 col-form-label">*이름</label>
+		    			<label for="userName" class="col-sm-2 col-form-label">*이름</label>
 		    			<div class="col-auto">
-		      				<form:input type="text" class="form-control" path="userName" />
+		      				<form:input type="text" class="form-control" path="userName" required="required"/>
 		      				<form:errors path="userName" cssClass="text-warning"/>
 		    			</div>
 		  			</div>
@@ -67,8 +135,8 @@ $(document).ready(function(){
                 <hr>
                 <div class="row mb-3">
 		      	<div class="col-auto">
-			    	<label for="sample4_postcode" class="visually-hidden">post</label>
-			    	<input type="text" name="post" class="form-control" id="sample4_postcode" placeholder="우편번호">
+			    	<label for="post" class="visually-hidden">post</label>
+			    	<input type="text" name="post" class="form-control" id="post" placeholder="우편번호">
 			  	</div>
 			  	<div class="col-auto">
 			    	<button type="button" class="btn btn-primary mb-3" onclick="sample4_execDaumPostcode()">우편번호 찾기</button>
@@ -76,12 +144,12 @@ $(document).ready(function(){
 		  	</div>
 		   	<div class="row mb-3">
 		    	<div class="col-sm-5">
-			    	<label for="sample4_roadAddress" class="visually-hidden">도로명주소</label>
-			    	<input type="text"  name="addr1" class="form-control" id="sample4_roadAddress" placeholder="도로명주소">
+			    	<label for="addr1" class="visually-hidden">도로명주소</label>
+			    	<input type="text"  name="addr1" class="form-control" id="addr1" placeholder="도로명주소">
 			  	</div>
 				<div class="col-sm-5">
-			    	<label for="sample4_jibunAddress" class="visually-hidden">지번주소</label>
-			    	<input type="text" name="addr2" class="form-control" id="sample4_jibunAddress" placeholder="지번주소">
+			    	<label for="addr2" class="visually-hidden">지번주소</label>
+			    	<input type="text" name="addr2" class="form-control" id="addr2" placeholder="지번주소">
 			    	<span id="guide" style="color:#999"></span>
 			  	</div>
 		  	</div>
@@ -166,9 +234,9 @@ $(document).ready(function(){
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample4_postcode').value = data.zonecode; //5자리 새우편번호 사용
-                document.getElementById('sample4_roadAddress').value = fullRoadAddr;
-                document.getElementById('sample4_jibunAddress').value = data.jibunAddress;
+                document.getElementById('post').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('addr1').value = fullRoadAddr;
+                document.getElementById('addr2').value = data.jibunAddress;
 
                 // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
                 if(data.autoRoadAddress) {
