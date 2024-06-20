@@ -1,6 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%
+    String userId = (String) session.getAttribute("userId");
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -54,15 +57,18 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="mypage">mypage</a>
                             </li>
+                            <form class="d-flex" action="cartItems" method="get">
+    							<input type="hidden" name="userId" value="${userId}">
+    							<button class="btn btn-outline-dark" type="submit">
+        						<i class="bi-cart-fill me-1"></i>
+        							Cart
+        						<span class="badge bg-dark text-white ms-1 rounded-pill">${cartItemCount}</span>
+    							</button>
+							</form>
+
                             </sec:authorize>
                         </ul>
-                    <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
-                    </form>
+                    
                 </div>
             </div>
         </nav>
@@ -75,8 +81,5 @@
                 </div>
             </div>
         </header>
-        
-        
-        
         </body>
         </html>

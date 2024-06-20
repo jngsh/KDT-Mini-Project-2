@@ -2,6 +2,8 @@ package com.exam.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.exam.dto.GoodsDTO;
+import com.exam.service.CartService;
 import com.exam.service.GoodsService;
 
 
@@ -24,31 +27,40 @@ public class MainController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 
 	GoodsService goodsService;
+	CartService cartService;
 	
 	
-	public MainController(GoodsService goodsService) {
-
+	public MainController(GoodsService goodsService, CartService cartService) {
+        this.cartService = cartService;
 		this.goodsService = goodsService;
 	}
 
 //	@GetMapping("/main")
 	@GetMapping(value={"/main"})
 	public String main(@RequestParam(required = false) String category,
-			ModelMap m) {
+			ModelMap m, HttpSession session) {
+		
+		String userId = (String) session.getAttribute("userId");
+		int cartItemCount = cartService.selectCart(userId);
+		System.out.println("++++===========");
+		System.out.println(cartItemCount);
+		
+		m.addAttribute("cartItemCount", cartItemCount);
+	    
+		cartService.cartList(category);
 	    
 	    List<GoodsDTO> goodsList;
   
 	    if (category == null || category.isEmpty()) {
 	        goodsList = goodsService.selectAll(); // 모든 책들을 가져오는 메서드
-//	        logger.info("logger:main:goodsList if문");
+
 	        
 	    } else {
-//	    	logger.info("logger:main:goodsList else문");
+
 	    	goodsList = goodsService.goodsList(category);
         
 	    }
 	    m.addAttribute("goodsList", goodsList);
-//	    logger.info("logger:main:goodsList addAttribute", m);
 
 	    return "main";
 	}
