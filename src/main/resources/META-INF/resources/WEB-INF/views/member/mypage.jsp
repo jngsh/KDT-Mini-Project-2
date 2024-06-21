@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css">
 <script src="webjars/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -28,67 +29,15 @@ $(document).ready(function(){
             // dataType: "json",
             contentType: "application/json",
             data: JSON.stringify(formData),
-/*          data: {
-            	userId: userId,
-            	userName: userName,
-            	post: post,
-            	addr1: addr1,
-            	addr2: addr2,
-            	phone1: phone1,
-            	phone2: phone2,
-            	phone3: phone3,
-            	email1: email1,
-            	email2: email2
-            }, */
             success: function(response) {
                 alert("회원 정보가 수정되었습니다.");
-                // window.location.href = "mypage";
-                $.get("/mypage", function(data) {
-                    $("#userName").val(data.userName);
-                    $("#post").val(data.post);
-                    $("#addr1").val(data.addr1);
-                    $("#addr2").val(data.addr2);
-                    $("#phone1").val(data.phone1);
-                    $("#phone2").val(data.phone2);
-                    $("#phone3").val(data.phone3);
-                    $("#email1").val(data.email1);
-                    $("#email2").val(data.email2);
-                });
+                // window.location.href = "login";
             },
             error: function(xhr, status, error) {
                 console.error(xhr);
             }
         });
     });
-	
-	/* $("#update").on("click", function() {
-
-		var formData = {
-            userId: $("#userId").val(),
-            userName: $("#userName").val(),
-            post: $("#post").val(),
-            addr1: $("#addr1").val(),
-            addr2: $("#addr2").val(),
-        	phone1: $("#phone1").val(),
-        	phone2: $("#phone2").val(),
-        	phone3: $("#phone3").val(),
-        	email1: $("#email1").val(),
-        	email2: $("#email2").val()
-     	};
-
-        $.ajax({
-            type: 'post',
-            url: '/updateMember',
-            contentType: 'application/json',
-            data: JSON.stringify(formData),
-            success: function(response) {
-                alert("회원정보가 수정되었습니다.");
-                window.location.href = '/mypage';
-            },
-            error: function(xhr, status, error) {
-            }
-        });
-    }); */
 	
 	// 회원 정보 수정 cancel
 	$("#cancel").on("click", function(){
@@ -104,27 +53,65 @@ $(document).ready(function(){
 
 </script>
 
+<style type="text/css">
+	
+	.mypage-container {
+		display: grid;
+		grid-auto-flow: column;
+		grid-template-columns: 12% 80%;
+	}
+	
+    .mypageSidebar {
+        left: 20px;
+        top: 50%;
+        display: grid;
+        grid-auto-flow: column;
+        flex-direction: column;
+        align-items: flex-start;
+        grid-template-rows: 20%;
+        margin-left: 10px;
+        padding-left: 15px;
+                
+    }
 
-<div class="mypageButton">
-	<button name="cart" class="btn btn-success m-5">장바구니</button>
-	<button name="orderInfo" class="btn btn-success m-5">주문내역</button>
-</div>
+    .pageLink {
+        width: 120px;
+        margin-bottom: 10px;
+    }
 
-<div class="container">
-	<form class="row g-3 m-4">
+    #mypage-form {
+        margin-left: 10px;
+        padding-left: 15px;
+        border-left: 1px solid #ccc;
+    }
+</style>
+
+
+
+<div class="mypage-container">
+	<div class="mypage-sidebar">
+		<div class="row g-3 m-4">
+			<a id="updateMember-page" class="page-link" href="mypage">회원정보 수정</a>
+			<a id="orderList-page" class="page-link" href="orderList">주문내역</a>
+		</div>
+	</div>
+	<form class="row g-3 m-4" id="mypage-form">
+		<h3>회원 정보</h3>
+		<br>
+		<hr>
 		<div class="row mb-3">
-			<label for="userId" class="col-sm-2 col-form-label">아이디</label>
+			<label for="userId" class="col-sm-2 col-form-label">*아이디</label>
 			<div class="col-auto">
 				<input type="text" class="form-control" id="userId" name="userId"
-					value="${member.userId}" disabled="disabled">
+					value="${member.userId}" disabled="disabled" required="required">
 			</div>
 		</div>
 
 		<div class="row mb-3">
-			<label for="userName" class="col-sm-2 col-form-label">이름</label>
+			<label for="userName" class="col-sm-2 col-form-label">*이름</label>
 			<div class="col-auto">
 				<input type="text" class="form-control" name="userName"
-					id="userName" value="${member.userName}">
+					id="userName" value="${member.userName}" required="required">
 			</div>
 		</div>
 		<hr>
@@ -196,15 +183,17 @@ $(document).ready(function(){
 			<label for="email3" class="visually-hidden">이메일2</label>
 		     	<div class="col-auto">
 		      		<select name="email3" class="form-control" id="email3">
+		      			<option selected disabled>선택하세요.</option>
 				  		<option value="daum.net">daum.net</option>
 				  		<option value="google.com">google.com</option>
 						<option value="naver.com">naver.com</option>
 					</select>
 			   	</div>
 		</div>
+		<hr>
 		<div class="col-12">
-			<button type="submit" class="btn btn-primary" id="update">update</button>
-			<button type="reset" class="btn btn-primary" id="cancel">cancel</button>
+			<button type="submit" class="btn btn-primary" id="update">수정</button>
+			<button type="reset" class="btn btn-primary" id="cancel">취소</button>
 		</div>
 	</form>
 

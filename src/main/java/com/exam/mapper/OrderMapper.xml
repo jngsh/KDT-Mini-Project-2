@@ -6,11 +6,20 @@
 <mapper namespace="com.exam.mapper.OrderMapper">
 
 
+	<!-- 주문하기 -->
 	<insert id="insertOrder" parameterType="OrderDTO">
 		
-		insert into `order`(orderDate, userId, title, cCount, imageCode,
-		bookId, totalPrice) values(#{orderDate},#{userId},#{title},#{cCount},#{imageCode},#{bookId},#{totalPrice})
+		insert into `order`(orderDate, userId, title, cCount, imageCode,bookId, totalPrice) 
+		values(#{orderDate},#{userId},#{title},#{cCount},#{imageCode},#{bookId},#{totalPrice})
 		
 	</insert>
+	
+	<!-- 주문내역 조회 -->
+	<select id="orderList" parameterType="string" resultType="OrderDTO">
+		select orderId, orderDate, userId, title, cCount, imageCode,bookId, totalPrice
+		from `order`
+		where userId = #{userId}
+		order by orderDate DESC
+	</select>
    
 </mapper>

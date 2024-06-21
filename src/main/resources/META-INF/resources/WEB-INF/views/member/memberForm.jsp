@@ -66,21 +66,10 @@ $(document).ready(function(){
 	});
 	
 	// 이메일 select
-	$("#email3").on("click", function(){
+	$("#email3").on("change", function(){
 		$("#email2").val($("#email3").val());
 	});
 	
-	
-/* 	// 비밀번호 mask
-	$("#userPw").on("keyup", function(){
-		var userPw = $(this).val();
-		var maskedPw = maskPw(userPw);
-		$("#userPw").text(maskedPw);
-	});
-	
-	function maskPw(pw){
-		return '*'.repeat(pw.length);
-	} */
 	
 });
 </script>
@@ -117,7 +106,7 @@ $(document).ready(function(){
 		  			<div class="row mb-3">
 		    			<label for="passwd2" class="col-sm-2 col-form-label">*비밀번호확인</label>
 		    			<div class="col-sm-5">
-		      				<input type="password" class="form-control" name="passwd2" id="passwd2">
+		      				<input type="password" class="form-control" name="passwd2" id="passwd2" required="required">
 		    				</div>
 		    			<div class="col-sm-3">
 		      				<span id="pwdcheck" class="fs-5"></span>
@@ -187,6 +176,7 @@ $(document).ready(function(){
 				<label for="email3" class="visually-hidden">이메일2</label>
 		     	<div class="col-auto">
 		      		<select name="email3" class="form-control" id="email3">
+		      			<option selected disabled>선택하세요.</option>
 				  		<option value="daum.net">daum.net</option>
 				  		<option value="google.com">google.com</option>
 						<option value="naver.com">naver.com</option>

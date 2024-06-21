@@ -46,7 +46,7 @@
                                                 <div class="row align-items-center">
                                                     <div class="col text-start">
                                                         <!-- 가격 표시 -->
-                                                        <span id="totalPrice">${cartDto.totalPrice}</span>원
+                                                        <strong>가격: </strong><span id="totalPrice">${cartDto.totalPrice}</span>원
                                                     </div>
                                                 </div>
                                             </div>
@@ -66,8 +66,7 @@
                 </div>
             </form>
         </div>
-        
-        <hr>
+        <br>
         <jsp:include page="common/footer.jsp" flush="true" />
     </div>
     
