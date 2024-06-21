@@ -2,9 +2,12 @@ package com.exam.dto;
 
 import java.time.LocalDate;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("OrderDTO")
 public class OrderDTO {
 
-
+	String orderId;
 	LocalDate orderDate;
 	String userId;
 	String title;
@@ -14,11 +17,10 @@ public class OrderDTO {
 	int totalPrice;
 	
 	public OrderDTO() {}
-	
-	public OrderDTO(LocalDate orderDate, String userId, String title, int cCount, String imageCode,
-			String bookId, int totalPrice) {
-		super();
 
+	public OrderDTO(String orderId, LocalDate orderDate, String userId, String title, int cCount, String imageCode,
+			String bookId, int totalPrice) {
+		this.orderId = orderId;
 		this.orderDate = orderDate;
 		this.userId = userId;
 		this.title = title;
@@ -28,13 +30,13 @@ public class OrderDTO {
 		this.totalPrice = totalPrice;
 	}
 
-//	public int getOrderId() {
-//		return orderId;
-//	}
+	public String getOrderId() {
+		return orderId;
+	}
 
-//	public void setOrderId(int orderId) {
-//		this.orderId = orderId;
-//	}
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
 
 	public LocalDate getOrderDate() {
 		return orderDate;
@@ -94,12 +96,9 @@ public class OrderDTO {
 
 	@Override
 	public String toString() {
-		return "OrderDTO [orderDate=" + orderDate + ", userId=" + userId + ", title=" + title
+		return "OrderDTO [orderId=" + orderId + ", orderDate=" + orderDate + ", userId=" + userId + ", title=" + title
 				+ ", cCount=" + cCount + ", imageCode=" + imageCode + ", bookId=" + bookId + ", totalPrice="
 				+ totalPrice + "]";
 	}
-	
-	
-	
 	
 }

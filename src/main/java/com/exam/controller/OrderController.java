@@ -7,22 +7,26 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.exam.dto.CartDTO;
-import com.exam.dto.MemberDTO;
+import com.exam.dto.GoodsDTO;
 import com.exam.dto.OrderDTO;
 import com.exam.service.CartService;
 import com.exam.service.OrderService;
 
+
 @Controller
 public class OrderController {
+	
+	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	CartService cartService;
 	OrderService orderService;
@@ -41,20 +45,15 @@ public class OrderController {
         
         // 장바구니에서 선택된 책 삭제, 주문 테이블에 선택 된 책 저장
         for (Map<Object, Object> book : selectedBooks) {
+        	
+        	logger.info("logger:purchaseBook:book={}", book);
+        	
             String bookId = (String) book.get("bookId");
-//            System.out.println(bookId);
             int cCount = (int) book.get("cCount");
-            System.out.println(cCount);
             int totalPrice = (int) book.get("totalPrice");
-            System.out.println(totalPrice);
             String title = (String) book.get("title");
-            System.out.println(title);
             LocalDate orderDate = LocalDate.now();
-            System.out.println(orderDate);
             String imageCode = (String) book.get("imageCode");
-            System.out.println(imageCode);
-            // 장바구니에서 선택된 책 삭제
-            cartService.deleteItem(bookId, userId);
             
             // 주문 테이블에 선택된 책 저장
             OrderDTO orderDTO = new OrderDTO();
@@ -67,6 +66,9 @@ public class OrderController {
             orderDTO.setImageCode(imageCode);
             
             orderService.insertOrder(orderDTO);
+            // 장바구니에서 선택된 책 삭제
+            cartService.deleteItem(bookId, userId);
+            
         }
         
         Map<String, String> response = new HashMap<>();
@@ -75,6 +77,20 @@ public class OrderController {
         
         return response;
     }
+    
+    @GetMapping("/orderList")
+    public String orderList(Model m, HttpSession session) {
+    	
+    	String userId = (String) session.getAttribute("userId");
+    	logger.info("logger:userId={}", userId);
+    	
+    	List<OrderDTO> orderList = orderService.orderList(userId);
+    	logger.info("logger:orderList select 후 orderList={}", orderList);
+    	m.addAttribute("orderList", orderList);
+    	
+    	return "/order/orderList";
+    }
+    
 
 
 

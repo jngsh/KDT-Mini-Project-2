@@ -1,5 +1,7 @@
 package com.exam.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,13 @@ public class OrderServiceImpl implements OrderService{
 		orderMapper.insertOrder(orderDTO);
 		
 	}
+
+	@Override
+	public List<OrderDTO> orderList(String userId) {
+		return orderMapper.orderList(userId);
+	}
+
+	
 	
 
 }
