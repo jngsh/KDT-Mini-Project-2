@@ -117,7 +117,7 @@ $(document).ready(function(){
 		  			<div class="row mb-3">
 		    			<label for="passwd2" class="col-sm-2 col-form-label">*비밀번호확인</label>
 		    			<div class="col-sm-5">
-		      				<input type="password" class="form-control" name="passwd2" id="passwd2">
+		      				<input type="password" class="form-control" name="passwd2" id="passwd2" required="required">
 		    				</div>
 		    			<div class="col-sm-3">
 		      				<span id="pwdcheck" class="fs-5"></span>

@@ -18,7 +18,7 @@ public class SecurityFilterChainConfig {
 			.antMatchers("/mypage").authenticated()
 //		    .antMatchers("/login","/main", "/signup", "/member/**", "/views/**", "/static/**", "/goods/**", "/common/**", "/webjars/**","/image/**", "/assets/**", "/css/**", "/js/**").permitAll()
 
-		    .antMatchers("/resources/**", "/goodsDetail", "/goods/**","/login", "/main", "/signup", "/idCheck","/webjars/**", "/image/**", "/assets/**", "/css/**", "/js/**").permitAll()
+		    .antMatchers("/goodsDetail", "/goods/**","/login", "/main", "/signup", "/idCheck","/webjars/**", "/image/**", "/assets/**", "/css/**", "/js/**").permitAll()
 
 		    .anyRequest()
 		    .authenticated();
