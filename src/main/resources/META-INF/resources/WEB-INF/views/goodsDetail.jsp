@@ -109,7 +109,7 @@
          
         						<div class="col text-start">
             					<!-- 가격 표시 -->
-            					<span id="totalPrice">${goodsRetrieve.price}</span>원
+            					<strong>가격: </strong><span id="totalPrice">${goodsRetrieve.price}</span>원
         						</div>
         						
                             <div class="text-left">
@@ -127,7 +127,7 @@
             </c:choose>
         </div>
         <hr>
-        <jsp:include page="common/footer.jsp" flush="true" />
     </div>
+        <jsp:include page="common/footer.jsp" flush="true" />
 </body>
 </html>

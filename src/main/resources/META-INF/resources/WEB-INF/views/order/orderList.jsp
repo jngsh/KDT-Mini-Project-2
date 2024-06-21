@@ -38,6 +38,10 @@
 	padding-left: 15px;
 	border-left: 1px solid #ccc;
 }
+
+.notice-nothing {
+	
+}
 </style>
 
 </head>
@@ -55,38 +59,48 @@
 
 			<!-- OrderList Section -->
 			<div class="container mt-5" id="order-content">
-				<h3>주문내역</h3>
-				<hr>
-				<c:forEach var="dto" items="${orderList}">
-					<div class="row">
-						<p>
-							<strong>주문번호:</strong> ${dto.orderId}
-						</p>
-						<p>
-							<strong>주문날짜:</strong> ${dto.orderDate}
-						</p>
-						<div class="col-md-4">
-							<img class="img-fluid" src="image/${dto.imageCode}.jpg"
-								alt="Book Image" width="150" height="180" />
+				
+				<c:choose>
+					<c:when test="${empty orderList}">
+						<br>
+						<div class="text-center">
+							<h5>주문내역이 없습니다.</h5>
 						</div>
-						<div class="col-md-8">
-							<h3>제목: ${dto.title}</h3>
-							<hr>
-							<p>
-								<strong>책 코드:</strong> ${dto.bookId}
-							</p>
-							<p>
-								<strong>수량:</strong> ${dto.cCount}
-							</p>
-							<p>
-								<strong>총 가격:</strong> <span id="totalPrice">${dto.totalPrice}</span>원
-							</p>
-
-
-						</div>
-					</div>
+						<br><br>
+					</c:when>
+					<c:otherwise>
+					<h3>주문내역</h3>
 					<hr>
-				</c:forEach>
+						<c:forEach var="dto" items="${orderList}">
+							<div class="row">
+								<p>
+									<strong>주문번호:</strong> ${dto.orderId}
+								</p>
+								<p>
+									<strong>주문날짜:</strong> ${dto.orderDate}
+								</p>
+								<div class="col-md-4">
+									<img class="img-fluid" src="image/${dto.imageCode}.jpg"
+										alt="Book Image" width="150" height="180" />
+								</div>
+								<div class="col-md-8">
+									<h3>제목: ${dto.title}</h3>
+									<hr>
+									<p>
+										<strong>책 코드:</strong> ${dto.bookId}
+									</p>
+									<p>
+										<strong>수량:</strong> ${dto.cCount}
+									</p>
+									<p>
+										<strong>총 가격:</strong> <span id="totalPrice">${dto.totalPrice}</span>원
+									</p>
+								</div>
+							</div>
+							<hr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 
