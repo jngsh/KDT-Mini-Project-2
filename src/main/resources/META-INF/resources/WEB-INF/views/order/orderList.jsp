@@ -39,9 +39,6 @@
 	border-left: 1px solid #ccc;
 }
 
-.notice-nothing {
-	
-}
 </style>
 
 </head>

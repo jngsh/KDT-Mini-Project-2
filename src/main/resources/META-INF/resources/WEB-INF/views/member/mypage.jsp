@@ -46,7 +46,7 @@ $(document).ready(function(){
 	});
 	
 	// 이메일 select
-	$("#email3").on("click", function(){
+	$("#email3").on("change", function(){
 		$("#email2").val($("#email3").val());
 	});
 });
@@ -79,7 +79,7 @@ $(document).ready(function(){
         margin-bottom: 10px;
     }
 
-    form {
+    #mypage-form {
         margin-left: 10px;
         padding-left: 15px;
         border-left: 1px solid #ccc;
@@ -95,7 +95,7 @@ $(document).ready(function(){
 			<a id="orderList-page" class="page-link" href="orderList">주문내역</a>
 		</div>
 	</div>
-	<form class="row g-3 m-4">
+	<form class="row g-3 m-4" id="mypage-form">
 		<h3>회원 정보</h3>
 		<br>
 		<hr>
@@ -183,6 +183,7 @@ $(document).ready(function(){
 			<label for="email3" class="visually-hidden">이메일2</label>
 		     	<div class="col-auto">
 		      		<select name="email3" class="form-control" id="email3">
+		      			<option selected disabled>선택하세요.</option>
 				  		<option value="daum.net">daum.net</option>
 				  		<option value="google.com">google.com</option>
 						<option value="naver.com">naver.com</option>
