@@ -47,23 +47,33 @@ public class CartController {
     ) {
     	
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	logger.info("logger:Authentication:{}", auth);
     	MemberDTO xxx = (MemberDTO)auth.getPrincipal();
-    	logger.info("logger:Member:{}", xxx);
+
+    	
     	String userId = xxx.getUserId();
     	
         CartDTO cartDTO = new CartDTO();
+        
+        if(cartService.selectBookId(bookId)!=null) {
+        	
+        	cartService.updateCartItem(userId, bookId, cCount, totalPrice);
+        	
+        }
+        else {
         cartDTO.setUserId(userId);
         cartDTO.setBookId(bookId);
         cartDTO.setcCount(cCount);
         cartDTO.setTotalPrice(totalPrice);
         cartService.addToCart(cartDTO);
 
+        
+    }
         Map<String, String> response = new HashMap<>();
         response.put("message", bookId + "가 장바구니에 담겼습니다. 수량: " + cCount);
         response.put("redirect", "main"); // 리다이렉트할 경로 설정
         return response;
     }
+        
     
     @GetMapping("/cartItems")
     public String cartList(@RequestParam("userId") String userId, Model m) {

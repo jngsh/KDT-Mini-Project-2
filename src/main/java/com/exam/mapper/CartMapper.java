@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.exam.dto.CartDTO;
+import com.exam.dto.GoodsDTO;
 
 @Mapper
 public interface CartMapper {
@@ -12,4 +13,6 @@ public interface CartMapper {
 	public List<CartDTO> cartList(String userId);
 	public void deleteItem(CartDTO cartDTO);
 	public int selectCart(String userId);
+	public CartDTO selectBookId(String BookId);
+	public void updateCartItem(String userId, String bookId, int cCount, int totalPrice);
 }

@@ -9,4 +9,6 @@ public interface CartService {
 	public List<CartDTO> cartList(String userId);
 	public void deleteItem(String bookId, String userId);
 	public int selectCart(String userId);
+	public CartDTO selectBookId(String bookId);
+	public void updateCartItem(String userId, String bookId, int cCount, int totalPrice);
 }

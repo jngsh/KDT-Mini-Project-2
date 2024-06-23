@@ -55,7 +55,19 @@
 	
    </select>
    
-   
-   
+   <!-- 장바구니 번호 있는지 없는지 -->
+	<select id="selectBookId" parameterType="string" resultType="CartDTO">
+		
+		select * from cart where bookId=#{bookId}
+		
+	</select>
+	
+	<!-- 장바구니 update -->
+	<update id="updateCartItem" parameterType="CartDTO">
+    UPDATE cart
+    SET cCount = cCount + #{cCount},
+        totalPrice = totalPrice + #{totalPrice}
+    WHERE userId = #{userId} AND bookId = #{bookId}
+  </update>
    
 </mapper>
