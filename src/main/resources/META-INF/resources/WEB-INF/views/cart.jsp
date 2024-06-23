@@ -41,12 +41,12 @@
                                             <hr>
                                             <p id="bookId-${cartDto.bookId}"><strong>책 코드:</strong> ${cartDto.bookId}</p>
                                             <p><strong>작가:</strong> ${cartDto.goodsList[0].author}</p>
-                                            <p id="bookCount"><strong>수량:</strong> ${cartDto.cCount}</p>
+                                            <p id="bookCount-${cartDto.bookId}"><strong>수량:</strong> ${cartDto.cCount}</p>
                                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                                 <div class="row align-items-center">
                                                     <div class="col text-start">
                                                         <!-- 가격 표시 -->
-                                                        <strong>가격: </strong><span id="totalPrice">${cartDto.totalPrice}</span>원
+                                                        <strong>가격: </strong><span id="totalPrice-${cartDto.bookId}">${cartDto.totalPrice}</span>원
                                                     </div>
                                                 </div>
                                             </div>
@@ -119,9 +119,9 @@
         checkboxes.forEach(function(checkbox) {
             var bookId = checkbox.value;
             
-            var cCountText = document.getElementById('bookCount').innerText.trim(); // 텍스트 가져오기
+            var cCountText = document.getElementById('bookCount-' + bookId).innerText.trim(); // 텍스트 가져오기
             var cCount = parseInt(cCountText.split('수량: ')[1]);
-            var totalPriceText = document.getElementById('totalPrice').innerText.trim(); // 책 가격 텍스트 가져오기
+            var totalPriceText = document.getElementById('totalPrice-'+bookId).innerText.trim(); // 책 가격 텍스트 가져오기
             var totalPrice = parseInt(totalPriceText.split('원')[0]); // 정수형으로 변환
             var title = document.getElementById('bookTitle-' + bookId).innerText.split(': ')[1];;
             var imageCode = document.getElementById('bookImage-' + bookId).src.split('/').pop().split('.')[0];
