@@ -61,10 +61,8 @@ public class MemberController {
 
 		String mesg = "사용가능";
 		if (idCount == 1) {
-//			logger.info("logger:idCount == 1: idCount={}", idCount);
 			mesg = "사용불가";
 		} else {
-//			logger.info("logger:idCount == 1: idCount={}", idCount);
 		}
 		return mesg;
 	}
@@ -89,7 +87,7 @@ public class MemberController {
 	@PostMapping(value = { "/updateMember" })
 	public @ResponseBody void updateMember(@RequestBody MemberDTO updatedMemberDTO, ModelMap model, HttpSession session) {
 
-		memberService.updateMember(updatedMemberDTO); // DB에 반영되는 시점
+		memberService.updateMember(updatedMemberDTO);
 		logger.info("logger:updateMember 후 memberDTO={}", updatedMemberDTO);
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

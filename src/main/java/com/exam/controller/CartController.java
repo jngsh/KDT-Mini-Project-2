@@ -1,6 +1,5 @@
 package com.exam.controller;
 
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,9 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import com.exam.dto.CartDTO;
-import com.exam.dto.GoodsDTO;
 import com.exam.dto.MemberDTO;
 import com.exam.service.CartService;
 
@@ -36,49 +33,7 @@ public class CartController {
 
 		this.cartService = cartService;
 	}    
-    
-    
-/*
-    @PostMapping("/addToCart")
-    public @ResponseBody Map<String, String> addToCart(
-            @RequestParam("bookId") String bookId,
-            @RequestParam("cCount") int cCount,
-            @RequestParam("totalPrice") int totalPrice,
-            HttpSession session
-    ) {
-    	
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	Object xxx = auth.getPrincipal();
 
-    	if (principal instanceof MemberDTO) {
-    		MemberDTO xxx=(MemberDTO)principal;
-    		String userId = xxx.getUserId();
-        	
-    	}
-    	
-        CartDTO cartDTO = new CartDTO();
-        
-        if(cartService.selectBookId(bookId)!=null) {
-        	
-        	cartService.updateCartItem(userId, bookId, cCount, totalPrice);
-        	
-        }
-        else {
-        cartDTO.setUserId(userId);
-        cartDTO.setBookId(bookId);
-        cartDTO.setcCount(cCount);
-        cartDTO.setTotalPrice(totalPrice);
-        cartService.addToCart(cartDTO);
-
-        
-    }
-        Map<String, String> response = new HashMap<>();
-        response.put("message", bookId + "가 장바구니에 담겼습니다. 수량: " + cCount);
-        response.put("redirect", "main"); // 리다이렉트할 경로 설정
-        return response;
-    }
-        
-  */
     @PostMapping("/addToCart")
     public @ResponseBody Map<String, String> addToCart(
             @RequestParam("bookId") String bookId,
@@ -108,7 +63,7 @@ public class CartController {
             
             Map<String, String> response = new HashMap<>();
             response.put("message", bookId + "가 장바구니에 담겼습니다. 수량: " + cCount);
-            response.put("redirect", "main"); // 리다이렉트할 경로 설정
+            response.put("redirect", "main");
             return response;
         } else {
             Map<String, String> response = new HashMap<>();
@@ -136,12 +91,10 @@ public class CartController {
                                       @RequestParam("userId") String userId) {
         String[] bookIds = selectedBookIds.split(",");
         
-        // 선택된 책들 삭제 로직
         for (String bookId : bookIds) {
             cartService.deleteItem(bookId,userId);
         }
         
-        // userId를 쿼리 파라미터로 함께 전달하여 cartItems 페이지로 리다이렉트
         return "redirect:/cartItems?userId=" + userId;
     }
 

@@ -14,10 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.exam.dto.GoodsDTO;
 import com.exam.dto.OrderDTO;
 import com.exam.service.CartService;
 import com.exam.service.OrderService;
@@ -43,7 +41,6 @@ public class OrderController {
                                                                  HttpSession session) {
         String userId = (String) session.getAttribute("userId");
         
-        // 장바구니에서 선택된 책 삭제, 주문 테이블에 선택 된 책 저장
         for (Map<Object, Object> book : selectedBooks) {
         	
         	logger.info("logger:purchaseBook:book={}", book);
@@ -55,7 +52,6 @@ public class OrderController {
             LocalDate orderDate = LocalDate.now();
             String imageCode = (String) book.get("imageCode");
             
-            // 주문 테이블에 선택된 책 저장
             OrderDTO orderDTO = new OrderDTO();
             orderDTO.setBookId(bookId);
             orderDTO.setUserId(userId);
@@ -66,7 +62,6 @@ public class OrderController {
             orderDTO.setImageCode(imageCode);
             
             orderService.insertOrder(orderDTO);
-            // 장바구니에서 선택된 책 삭제
             cartService.deleteItem(bookId, userId);
             
         }
@@ -90,34 +85,5 @@ public class OrderController {
     	
     	return "/order/orderList";
     }
-    
-
-
-
-//	@PostMapping("/addToCart")
-//    public @ResponseBody Map<String, String> addToCart(
-//            @RequestParam("bookId") String bookId,
-//            @RequestParam("cCount") int cCount,
-//            @RequestParam("totalPrice") int totalPrice,
-//            HttpSession session
-//    ) {
-//    	
-//    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//    	logger.info("logger:Authentication:{}", auth);
-//    	MemberDTO xxx = (MemberDTO)auth.getPrincipal();
-//    	logger.info("logger:Member:{}", xxx);
-//    	String userId = xxx.getUserId();
-//    	
-//        CartDTO cartDTO = new CartDTO();
-//        cartDTO.setUserId(userId);
-//        cartDTO.setBookId(bookId);
-//        cartDTO.setcCount(cCount);
-//        cartDTO.setTotalPrice(totalPrice);
-//        cartService.addToCart(cartDTO);
-//
-//        Map<String, String> response = new HashMap<>();
-//        response.put("message", bookId + "가 장바구니에 담겼습니다. 수량: " + cCount);
-//        response.put("redirect", "main"); // 리다이렉트할 경로 설정
-//        return response;
-//    }    
+       
 }

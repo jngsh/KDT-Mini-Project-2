@@ -12,15 +12,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 import com.exam.dto.MemberDTO;
 import com.exam.service.MemberService;
-import com.mysql.cj.Session;
 
 @Controller
 public class LoginController {

@@ -35,7 +35,7 @@
                         
                     </ul>
                     <ul class="navbar-nav">
-        					<!-- 인증이 안 된 사용자 -->
+
         					<sec:authorize access="isAnonymous()">
                              <li class="nav-item">
                                <a class="nav-link" href="login">login</a>
@@ -47,7 +47,6 @@
                             </li>
                             </sec:authorize>
                             
-                            <!-- 인증이 된 사용자 -->
                             <sec:authorize access="isAuthenticated()">
                             <li class="nav-item">
                                 <a class="nav-link" href="logout">logout</a>
