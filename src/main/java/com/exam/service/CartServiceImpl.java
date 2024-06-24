@@ -44,9 +44,9 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public CartDTO selectBookId(String bookId) {
+	public CartDTO selectBookId(String bookId, String userId) {
 		
-		return cartMapper.selectBookId(bookId);
+		return cartMapper.selectBookId(bookId, userId);
 	}
 
 	@Override

@@ -13,6 +13,6 @@ public interface CartMapper {
 	public List<CartDTO> cartList(String userId);
 	public void deleteItem(CartDTO cartDTO);
 	public int selectCart(String userId);
-	public CartDTO selectBookId(String BookId);
+	public CartDTO selectBookId(String bookId, String userId);
 	public void updateCartItem(String userId, String bookId, int cCount, int totalPrice);
 }

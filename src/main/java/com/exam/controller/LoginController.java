@@ -1,5 +1,8 @@
 package com.exam.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -52,6 +55,12 @@ public class LoginController {
 	        }
 	      return "redirect:main";
 	   }
-	
+	 @GetMapping("/checkLoginStatus")
+	    public Map<String, Boolean> checkLoginStatus() {
+	        Map<String, Boolean> response = new HashMap<>();
+	        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	        response.put("loggedIn", auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal()));
+	        return response;
+	    }
 	
 }

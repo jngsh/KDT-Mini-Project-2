@@ -56,9 +56,9 @@
    </select>
    
    <!-- 장바구니 번호 있는지 없는지 -->
-	<select id="selectBookId" parameterType="string" resultType="CartDTO">
+	<select id="selectBookId" parameterType="CartDTO" resultType="CartDTO">
 		
-		select * from cart where bookId=#{bookId}
+		select * from cart where bookId=#{bookId} and userId=#{userId}
 		
 	</select>
 	

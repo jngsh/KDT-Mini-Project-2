@@ -1,5 +1,6 @@
 package com.exam.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class CartController {
 	}    
     
     
-
+/*
     @PostMapping("/addToCart")
     public @ResponseBody Map<String, String> addToCart(
             @RequestParam("bookId") String bookId,
@@ -47,10 +48,13 @@ public class CartController {
     ) {
     	
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	MemberDTO xxx = (MemberDTO)auth.getPrincipal();
+    	Object xxx = auth.getPrincipal();
 
-    	
-    	String userId = xxx.getUserId();
+    	if (principal instanceof MemberDTO) {
+    		MemberDTO xxx=(MemberDTO)principal;
+    		String userId = xxx.getUserId();
+        	
+    	}
     	
         CartDTO cartDTO = new CartDTO();
         
@@ -74,6 +78,46 @@ public class CartController {
         return response;
     }
         
+  */
+    @PostMapping("/addToCart")
+    public @ResponseBody Map<String, String> addToCart(
+            @RequestParam("bookId") String bookId,
+            @RequestParam("cCount") int cCount,
+            @RequestParam("totalPrice") int totalPrice,
+            HttpSession session
+    ) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = auth.getPrincipal();
+        
+        if (principal instanceof MemberDTO) {
+            MemberDTO xxx = (MemberDTO) principal;
+            String userId = xxx.getUserId();
+            
+            
+            
+            if (cartService.selectBookId(bookId,userId) != null) {
+                cartService.updateCartItem(userId, bookId, cCount, totalPrice);
+            } else {
+            	CartDTO cartDTO = new CartDTO();
+                cartDTO.setUserId(userId);
+                cartDTO.setBookId(bookId);
+                cartDTO.setcCount(cCount);
+                cartDTO.setTotalPrice(totalPrice);
+                cartService.addToCart(cartDTO);
+            }
+            
+            Map<String, String> response = new HashMap<>();
+            response.put("message", bookId + "가 장바구니에 담겼습니다. 수량: " + cCount);
+            response.put("redirect", "main"); // 리다이렉트할 경로 설정
+            return response;
+        } else {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "로그인이 필요한 서비스입니다.");
+            response.put("redirect", "login");
+            return response;
+        }
+    }
+
     
     @GetMapping("/cartItems")
     public String cartList(@RequestParam("userId") String userId, Model m) {
