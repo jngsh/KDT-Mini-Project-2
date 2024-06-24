@@ -2,8 +2,9 @@ package com.exam.dto;
 
 import java.util.List;
 
-import com.exam.dto.GoodsDTO;
+import org.apache.ibatis.type.Alias;
 
+@Alias("CartDTO")
 public class CartDTO {
 	
 	int cartId;

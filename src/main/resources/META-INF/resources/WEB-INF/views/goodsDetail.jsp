@@ -55,41 +55,6 @@
             });
         }
 
-/* function addToCart(bookId) {
-    $.ajax({
-        type: "GET",
-        url: "/checkLoginStatus", // 로그인 상태 확인용 URL
-        success: function(response) {
-            if (response.userId) {
-                let cCount = parseInt(document.getElementById('cCount').textContent);
-                let totalPrice = parseInt(document.getElementById('totalPrice').textContent);
-                $.ajax({
-                    type: "POST",
-                    url: "addToCart",
-                    data: {
-                        bookId: bookId,
-                        cCount: cCount,
-                        totalPrice: totalPrice
-                    },
-                    success: function(response) {
-                        alert(response.message);
-                        window.location.href = response.redirect;
-                    },
-                    error: function() {
-                        alert("장바구니에 담는 중 오류가 발생했습니다.");
-                    }
-                });
-            }
-        },
-        error: function() {
-            alert("로그인이 필요한 서비스입니다.");
-            window.location.href = "bookshop/login";
-        }
-    });
-}
-*/
-
-
 
     </script>
   
@@ -145,7 +110,6 @@
         							<div class="col text-start">
          
         						<div class="col text-start">
-            					<!-- 가격 표시 -->
             					<strong>가격: </strong><span id="totalPrice">${goodsRetrieve.price}</span>원
         						</div>
         						
